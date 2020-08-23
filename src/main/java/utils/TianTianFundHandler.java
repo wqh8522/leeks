@@ -29,7 +29,6 @@ public class TianTianFundHandler extends FundRefreshHandler {
         }
         worker = new Thread(() -> {
             while (worker!=null && worker.hashCode() == Thread.currentThread().hashCode() && !worker.isInterrupted()){
-                LogUtil.info("基金autoUpdate：" + String.valueOf(autoUpdate));
                 stepAction();
                 try {
                     Thread.sleep(timer * 1000);

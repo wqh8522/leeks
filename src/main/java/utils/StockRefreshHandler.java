@@ -1,18 +1,21 @@
 package utils;
 
+import com.intellij.ui.AncestorListenerAdapter;
 import com.intellij.ui.JBColor;
 
 import javax.swing.*;
+import javax.swing.event.AncestorEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class StockRefreshHandler {
     private ArrayList<StockBean> data = new ArrayList<>();
     private JTable table;
-    private int[] sizes = new int[]{0,0,0,0,0};
+    private int[] sizes = new int[]{0, 0, 0, 0, 0};
 
     public boolean autoUpdate = true;
     public int timer;
@@ -25,6 +28,7 @@ public abstract class StockRefreshHandler {
         // Fix tree row height
         FontMetrics metrics = table.getFontMetrics(table.getFont());
         table.setRowHeight(Math.max(table.getRowHeight(), metrics.getHeight()));
+
     }
 
     public void setColorful(boolean colorful) {
@@ -55,8 +59,8 @@ public abstract class StockRefreshHandler {
             @Override
             public void run() {
                 recordTableSize();
-                String[] columnNames = {"股票名称", "当前价","涨跌", "涨跌幅", "更新时间"};
-                if (!colorful){
+                String[] columnNames = {"股票名称", "当前价", "涨跌", "涨跌幅", "更新时间"};
+                if (!colorful) {
                     for (int i = 0; i < columnNames.length; i++) {
                         columnNames[i] = PinYinUtils.toPinYin(columnNames[i]);
                     }
@@ -71,7 +75,7 @@ public abstract class StockRefreshHandler {
     }
 
     private void recordTableSize() {
-        if (table.getColumnModel().getColumnCount() == 0){
+        if (table.getColumnModel().getColumnCount() == 0) {
             return;
         }
         for (int i = 0; i < sizes.length; i++) {
@@ -81,7 +85,7 @@ public abstract class StockRefreshHandler {
 
     private void resizeTable() {
         for (int i = 0; i < sizes.length; i++) {
-            if (sizes[i] > 0){
+            if (sizes[i] > 0) {
                 table.getColumnModel().getColumn(i).setWidth(sizes[i]);
                 table.getColumnModel().getColumn(i).setPreferredWidth(sizes[i]);
             }
@@ -94,22 +98,22 @@ public abstract class StockRefreshHandler {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 double temp = 0.0;
                 try {
-                    String s = value.toString().substring(0,value.toString().length()-1);
+                    String s = value.toString().substring(0, value.toString().length() - 1);
                     temp = Double.parseDouble(s);
                 } catch (Exception e) {
 
                 }
                 Color orgin = getForeground();
                 if (temp > 0) {
-                    if (colorful){
+                    if (colorful) {
                         setForeground(JBColor.RED);
-                    }else {
+                    } else {
                         setForeground(JBColor.DARK_GRAY);
                     }
                 } else if (temp < 0) {
-                    if (colorful){
+                    if (colorful) {
                         setForeground(JBColor.GREEN);
-                    }else {
+                    } else {
                         setForeground(JBColor.GRAY);
                     }
                 } else if (temp == 0) {
@@ -136,18 +140,19 @@ public abstract class StockRefreshHandler {
             String timeStr = fundBean.getTime().substring(8);
             String changeStr = "--";
             String changePercentStr = "--";
-            if (fundBean.getChange()!=null){
-                changeStr= fundBean.getChange().startsWith("-")?fundBean.getChange():"+"+fundBean.getChange();
+            if (fundBean.getChange() != null) {
+                changeStr = fundBean.getChange().startsWith("-") ? fundBean.getChange() : "+" + fundBean.getChange();
             }
-            if (fundBean.getChangePercent()!=null){
-                changePercentStr= fundBean.getChangePercent().startsWith("-")?fundBean.getChangePercent():"+"+fundBean.getChangePercent();
+            if (fundBean.getChangePercent() != null) {
+                changePercentStr = fundBean.getChangePercent().startsWith("-") ? fundBean.getChangePercent() : "+" + fundBean.getChangePercent();
             }
-            temp[i] = new Object[]{colorful?fundBean.getName():PinYinUtils.toPinYin(fundBean.getName())+" ("+fundBean.getCode()+")", fundBean.getNow(), changeStr,changePercentStr+"%", timeStr};
+            temp[i] = new Object[]{colorful ? fundBean.getName() + "-" + fundBean.getCode()
+                    : PinYinUtils.toPinYin(fundBean.getName()) + "-" + fundBean.getCode(), fundBean.getNow(), changeStr, changePercentStr + "%", timeStr};
         }
         return temp;
     }
 
-    protected void clear(){
+    protected void clear() {
         data.clear();
     }
 }

@@ -1,6 +1,7 @@
 package utils;
 
 import javax.swing.*;
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +38,6 @@ public class TencentStockHandler extends StockRefreshHandler {
         }
         worker = new Thread(() -> {
             while (worker!=null && worker.hashCode() == Thread.currentThread().hashCode() && !worker.isInterrupted()){
-                LogUtil.info("股票autoUpdate：" + String.valueOf(autoUpdate));
                 stepAction();
                 try {
                     Thread.sleep(timer * 1000);

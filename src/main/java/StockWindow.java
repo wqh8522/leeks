@@ -1,4 +1,5 @@
 import com.intellij.ide.util.PropertiesComponent;
+import utils.LogUtil;
 import utils.StockRefreshHandler;
 import utils.TencentStockHandler;
 
@@ -10,6 +11,7 @@ public class StockWindow {
     private JPanel panel1;
     private JTable table1;
     private JLabel label;
+    private JButton detailBtn;
 
     StockRefreshHandler handler;
 
@@ -29,6 +31,24 @@ public class StockWindow {
         handler.setAutoUpdate(autoUpdateS);
         handler.setTimer(timerS);
         handler.handle(loadStocks());
+        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        detailBtn.addActionListener(e -> {
+            if (table1.getSelectedRow() < 0) {
+                return;
+            }
+            String nameCode = table1.getModel().getValueAt(table1.getSelectedRow(), 0).toString();
+            if (nameCode == null || nameCode == "" || nameCode.split("-").length < 2) {
+                return;
+            }
+            String code = nameCode.split("-")[1];
+            StockDetailDialog dialog = new StockDetailDialog();
+            dialog.init(code);
+            dialog.pack();
+            dialog.setVisible(true);
+
+
+//            System.exit(0);
+        });
 
     }
 
