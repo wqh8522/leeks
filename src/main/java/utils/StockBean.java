@@ -8,6 +8,12 @@ public class StockBean {
     private String now;
     private String change;//涨跌
     private String changePercent;
+
+    /** 卖一 */
+    private String sale1;
+    /** 买一 */
+    private String buy1;
+
     private String time;
 
     public StockBean() {
@@ -64,6 +70,22 @@ public class StockBean {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getSale1() {
+        return sale1;
+    }
+
+    public void setSale1(String sale1) {
+        this.sale1 = sale1;
+    }
+
+    public String getBuy1() {
+        return buy1;
+    }
+
+    public void setBuy1(String buy1) {
+        this.buy1 = buy1;
     }
 
     @Override

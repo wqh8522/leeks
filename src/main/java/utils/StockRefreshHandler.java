@@ -59,7 +59,7 @@ public abstract class StockRefreshHandler {
             @Override
             public void run() {
                 recordTableSize();
-                String[] columnNames = {"股票名称", "当前价", "涨跌", "涨跌幅", "更新时间"};
+                String[] columnNames = {"股票名称", "当前价", "涨跌", "涨跌幅", "4卖一", "买一", "更新时间"};
                 if (!colorful) {
                     for (int i = 0; i < columnNames.length; i++) {
                         columnNames[i] = PinYinUtils.toPinYin(columnNames[i]);
@@ -122,6 +122,28 @@ public abstract class StockRefreshHandler {
                 return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             }
         });
+        table.getColumn(table.getColumnName(4)).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (colorful) {
+                    setForeground(JBColor.GREEN);
+                } else {
+                    setForeground(JBColor.GRAY);
+                }
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            }
+        });
+        table.getColumn(table.getColumnName(5)).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (colorful) {
+                    setForeground(JBColor.RED);
+                } else {
+                    setForeground(JBColor.GRAY);
+                }
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            }
+        });
     }
 
     protected void updateData(StockBean bean) {
@@ -147,7 +169,8 @@ public abstract class StockRefreshHandler {
                 changePercentStr = fundBean.getChangePercent().startsWith("-") ? fundBean.getChangePercent() : "+" + fundBean.getChangePercent();
             }
             temp[i] = new Object[]{colorful ? fundBean.getName() + "-" + fundBean.getCode()
-                    : PinYinUtils.toPinYin(fundBean.getName()) + "-" + fundBean.getCode(), fundBean.getNow(), changeStr, changePercentStr + "%", timeStr};
+                    : PinYinUtils.toPinYin(fundBean.getName()) + "-" + fundBean.getCode(), fundBean.getNow(), changeStr, changePercentStr + "%",
+                    fundBean.getSale1(), fundBean.getBuy1(), timeStr};
         }
         return temp;
     }

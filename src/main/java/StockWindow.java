@@ -15,6 +15,8 @@ public class StockWindow {
 
     StockRefreshHandler handler;
 
+    StockDetailDialog dialog;
+
     public JPanel getPanel1() {
         return panel1;
     }
@@ -41,12 +43,10 @@ public class StockWindow {
                 return;
             }
             String code = nameCode.split("-")[1];
-            StockDetailDialog dialog = new StockDetailDialog();
+            dialog = new StockDetailDialog();
             dialog.init(code);
             dialog.pack();
             dialog.setVisible(true);
-
-
 //            System.exit(0);
         });
 

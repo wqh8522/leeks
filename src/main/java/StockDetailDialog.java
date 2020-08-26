@@ -6,6 +6,7 @@ import utils.HttpClientPool;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 
 public class StockDetailDialog extends JDialog {
@@ -131,8 +132,13 @@ public class StockDetailDialog extends JDialog {
             zuigao.setText(zuigao.getText() + values[41]);
             zuidi.setText(zuidi.getText() + values[42]);
             zuoshou.setText(zuoshou.getText() + values[4]);
+            if (values[36] != null) {
+//                BigDecimal cjl = new BigDecimal(values[36]);
+//                BigDecimal divide = cjl.divide(new BigDecimal(10000));
+                int cjl = Integer.valueOf(values[36]);
+                chenjiaoliang.setText(chenjiaoliang.getText() + (cjl > 9999 ? (cjl/10000) + "万手" : cjl + "手"));
+            }
 
-            chenjiaoliang.setText(chenjiaoliang.getText() + values[36]);
             chengjiaoe.setText(chengjiaoe.getText() + values[37]);
 //            neipan.setText(neipan.getText() + "<html><font color='green'>" + values[8] +"</font>");
             neipan.setText(neipan.getText() +  values[8]);
