@@ -101,14 +101,14 @@ public class TencentStockHandler extends StockRefreshHandler {
             bean.setChange(values[31]);
             bean.setChangePercent(values[32]);
             bean.setTime(values[30]);
-            if (values[10] == null) {
+            if (values[10] != null) {
                 String m1 = Double.valueOf(values[10]) < 10000 ? values[10] : new BigDecimal(Double.valueOf(values[10])/10000)
                         .setScale(2, BigDecimal.ROUND_HALF_UP) + "万";
                 bean.setBuy1(values[9] + "--" + m1);
             } else {
                 bean.setBuy1(values[9] + "--" + values[10]);
             }
-            if (values[20] == null) {
+            if (values[20] != null) {
                 String m1 = Double.valueOf(values[20]) < 10000 ? values[20] : new BigDecimal(Double.valueOf(values[20])/10000)
                         .setScale(2, BigDecimal.ROUND_HALF_UP) + "万";
                 bean.setBuy1(values[9] + "--" + m1);
