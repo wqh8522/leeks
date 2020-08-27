@@ -111,7 +111,7 @@ public class TencentStockHandler extends StockRefreshHandler {
             if (values[20] != null) {
                 String m1 = Double.valueOf(values[20]) < 10000 ? values[20] : new BigDecimal(Double.valueOf(values[20])/10000)
                         .setScale(2, BigDecimal.ROUND_HALF_UP) + "万";
-                bean.setBuy1(values[9] + "--" + m1);
+                bean.setSale1(values[19] + "--" + m1);
             } else {
                 bean.setSale1(values[19] + "--" + values[20]);
             }
