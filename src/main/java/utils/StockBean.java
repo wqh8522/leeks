@@ -14,6 +14,9 @@ public class StockBean {
     /** 买一 */
     private String buy1;
 
+    /** 换手率 */
+    private String hsl;
+
     private String time;
 
     public StockBean() {
@@ -86,6 +89,14 @@ public class StockBean {
 
     public void setBuy1(String buy1) {
         this.buy1 = buy1;
+    }
+
+    public String getHsl() {
+        return hsl;
+    }
+
+    public void setHsl(String hsl) {
+        this.hsl = hsl;
     }
 
     @Override

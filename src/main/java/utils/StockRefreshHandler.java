@@ -59,7 +59,7 @@ public abstract class StockRefreshHandler {
             @Override
             public void run() {
                 recordTableSize();
-                String[] columnNames = {"股票名称", "当前价", "涨跌", "涨跌幅", "4卖一", "买一", "更新时间"};
+                String[] columnNames = {"股票名称", "当前价", "涨跌", "涨跌幅", "换手率", "4卖一", "买一", "更新时间"};
                 if (!colorful) {
                     for (int i = 0; i < columnNames.length; i++) {
                         columnNames[i] = PinYinUtils.toPinYin(columnNames[i]);
@@ -170,7 +170,7 @@ public abstract class StockRefreshHandler {
             }
             temp[i] = new Object[]{colorful ? fundBean.getName() + "-" + fundBean.getCode()
                     : PinYinUtils.toPinYin(fundBean.getName()) + "-" + fundBean.getCode(), fundBean.getNow(), changeStr, changePercentStr + "%",
-                    fundBean.getSale1(), fundBean.getBuy1(), timeStr};
+                    fundBean.getHsl(),fundBean.getSale1(), fundBean.getBuy1(), timeStr};
         }
         return temp;
     }

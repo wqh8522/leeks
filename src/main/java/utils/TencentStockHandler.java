@@ -115,6 +115,7 @@ public class TencentStockHandler extends StockRefreshHandler {
             } else {
                 bean.setSale1(values[19] + "--" + values[20]);
             }
+            bean.setHsl(values[38] + "%");
             updateData(bean);
         }
     }
