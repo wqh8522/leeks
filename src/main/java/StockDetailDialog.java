@@ -133,10 +133,9 @@ public class StockDetailDialog extends JDialog {
             zuidi.setText(zuidi.getText() + values[42]);
             zuoshou.setText(zuoshou.getText() + values[4]);
             if (values[36] != null) {
-//                BigDecimal cjl = new BigDecimal(values[36]);
-//                BigDecimal divide = cjl.divide(new BigDecimal(10000));
-                int cjl = Integer.valueOf(values[36]);
-                chenjiaoliang.setText(chenjiaoliang.getText() + (cjl > 9999 ? (cjl/10000) + "万手" : cjl + "手"));
+                String m1 = Double.valueOf(values[36]) < 10000 ? values[36] + "手" : new BigDecimal(Double.valueOf(values[36])/10000)
+                        .setScale(0, BigDecimal.ROUND_HALF_UP) + "万手";
+                chenjiaoliang.setText(chenjiaoliang.getText() + m1);
             }
 
             chengjiaoe.setText(chengjiaoe.getText() + values[37]);
